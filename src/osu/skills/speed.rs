@@ -187,12 +187,15 @@ impl SpeedEvaluator {
         };
 
         let travel_dist = osu_prev_obj.map_or(0.0, |obj| obj.dists.travel_dist);
-        let dist = match mods.ap() {
-            true => 0.0,
-            false => {
-                Self::SINGLE_SPACING_THRESHOLD.min(travel_dist + osu_curr_obj.dists.min_jump_dist)
-            }
-        };
+        
+        // let dist = match mods.ap() {
+        //     true => 0.0,
+        //     false => {
+        //         Self::SINGLE_SPACING_THRESHOLD.min(travel_dist + osu_curr_obj.dists.min_jump_dist)
+        //     }
+        // };
+
+        let dist = Self::SINGLE_SPACING_THRESHOLD.min(travel_dist + osu_curr_obj.dists.min_jump_dist);
 
         (speed_bonus + speed_bonus * (dist / Self::SINGLE_SPACING_THRESHOLD).powf(3.5))
             * doubletapness
