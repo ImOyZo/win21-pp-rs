@@ -456,9 +456,6 @@ impl OsuPpInner {
     }
 
     fn compute_aim_value(&self) -> f64 {
-        if self.mods.ap() {
-            return 0.0;
-        }
 
         let mut aim_value = (5.0 * (self.attrs.aim / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
 
@@ -518,9 +515,6 @@ impl OsuPpInner {
     }
 
     fn compute_speed_value(&self) -> f64 {
-        if self.mods.rx() {
-            return 0.0;
-        }
 
         let mut speed_value =
             (5.0 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
@@ -588,9 +582,6 @@ impl OsuPpInner {
     }
 
     fn compute_accuracy_value(&self) -> f64 {
-        if self.mods.rx() {
-            return 0.0;
-        }
 
         // * This percentage only considers HitCircles of any value - in this part
         // * of the calculation we focus on hitting the timing hit window.

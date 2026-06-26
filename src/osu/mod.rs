@@ -146,13 +146,12 @@ impl<'map> OsuStars<'map> {
         }
 
         if mods.rx() {
-            aim_rating *= 0.9;
-            speed_rating = 0.1;
+            speed_rating = 0.5;
             flashlight_rating *= 0.7;
         }
 
         if mods.ap() {
-            aim_rating = 0.4;
+            aim_rating *= 0.5;
             flashlight_rating *= 0.4;
         }
 
