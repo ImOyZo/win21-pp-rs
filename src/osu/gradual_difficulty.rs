@@ -257,7 +257,7 @@ impl Iterator for OsuGradualDifficultyAttributes {
 
         if self.mods.rx() {
             aim_rating *= 1.25;
-            speed_rating = 0.5;
+            speed_rating *= 0.5;
             flashlight_rating *= 0.7;
         }
 
