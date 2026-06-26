@@ -1,0 +1,36 @@
+[package]
+name = "akatsuki-pp"
+version = "1.0.1"
+authors = ["MaxOhn <ohn.m@hotmail.de>", "tsunyoku <tsunyoku@gmail.com>"]
+edition = "2018"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/osuAkatsuki/akatsuki-pp"
+description = "osu! difficulty and pp calculation for all modes"
+keywords = ["osu", "pp", "stars", "async"]
+
+[features]
+default = []
+async_std = ["async-std"]
+async_tokio = ["tokio"]
+
+[dependencies.async-std]
+version = "1.9"
+optional = true
+default-features = false
+features = ["async-io", "std"]
+
+[dependencies.tokio]
+version = "1.2"
+optional = true
+default-features = false
+features = ["fs", "io-util"]
+
+[dev-dependencies.tokio]
+version = "1.2"
+default-features = false
+features = ["fs", "rt"]
+
+[dev-dependencies.async-std]
+version = "1.9"
+default-features = true
