@@ -25,7 +25,7 @@ const DIFFICULTY_MULTIPLIER: f64 = 0.0675;
 const NORMALIZED_RADIUS: f32 = 50.0;
 const STACK_DISTANCE: f32 = 3.0;
 // * This is being adjusted to keep the final pp value scaled around what it used to be when changing things.
-const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.14;
+const PERFORMANCE_BASE_MULTIPLIER: f64 = 1.4;
 const PREEMPT_MIN: f64 = 450.0;
 const FADE_IN_DURATION_MULTIPLIER: f64 = 0.4;
 const PLAYFIELD_BASE_SIZE: Pos2 = Pos2 { x: 512.0, y: 384.0 };

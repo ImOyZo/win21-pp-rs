@@ -310,7 +310,7 @@ impl<'m> OsuPP<'m> {
         let mut aim_value = (5.1 * (raw_aim / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
 
         // Longer maps are worth more
-        // on ~8000 total hits = ~1.5 multiplier
+        // ex. on ~8000 total hits = ~1.5 multiplier
         let len_bonus = 0.88
             + 0.5 * (total_hits / 3000.0).min(1.0)
             + (total_hits > 3000.0) as u8 as f32 * 0.5 * (total_hits / 3000.0).log10();

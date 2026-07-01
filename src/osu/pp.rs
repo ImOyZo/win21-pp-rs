@@ -534,9 +534,7 @@ impl OsuPpInner {
             );
         }
 
-        let ar_factor = if self.mods.ap() {
-            0.0
-        } else if self.attrs.ar > 10.33 {
+        let ar_factor = if self.attrs.ar > 10.33 {
             0.3 * (self.attrs.ar - 10.33)
         } else {
             0.0
@@ -687,7 +685,7 @@ fn calculate_effective_misses(attrs: &OsuDifficultyAttributes, state: &OsuScoreS
 }
 
 fn calculate_miss_penalty(miss_count: f64, difficult_strain_count: f64) -> f64 {
-    0.96 / ((miss_count / (4.0 * difficult_strain_count.ln().powf(0.94))) + 1.0)
+    0.98 / ((miss_count.sqrt() / (6.0 * difficult_strain_count.ln().powf(0.94))) + 1.0)
 }
 
 /// Abstract type to provide flexibility when passing difficulty attributes to a performance calculation.
