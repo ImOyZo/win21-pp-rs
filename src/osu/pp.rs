@@ -518,7 +518,7 @@ impl OsuPpInner {
 
         if self.mods.ap() {
             let mut speed_value =
-                (6.2 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
+                (6.8 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
         } else {
             let mut speed_value =
                 (5.0 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
@@ -526,10 +526,16 @@ impl OsuPpInner {
 
         let total_hits = self.total_hits();
 
-        let len_bonus = 0.95
+
+        if self.mods.ap() {
+            let len_bonus = 0.95
+            + 0.4 * (total_hits / 3000.0).min(1.0)
+            + (total_hits > 3000.0) as u8 as f64 * (total_hits / 3000.0).log10() * 0.5;
+        } else {
+            let len_bonus = 0.95
             + 0.4 * (total_hits / 2000.0).min(1.0)
             + (total_hits > 2000.0) as u8 as f64 * (total_hits / 2000.0).log10() * 0.5;
-
+        }
         speed_value *= len_bonus;
 
         if self.effective_miss_count > 0.0 {
