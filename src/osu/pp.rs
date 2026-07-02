@@ -516,26 +516,23 @@ impl OsuPpInner {
 
     fn compute_speed_value(&self) -> f64 {
 
-        if self.mods.ap() {
-            let mut speed_value =
-                (6.8 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
+        let mut speed_value = if self.mods.ap() {
+            (6.8 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0
         } else {
-            let mut speed_value =
-                (5.0 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
-        }
+            (5.0 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0
+        };
 
         let total_hits = self.total_hits();
 
 
-        if self.mods.ap() {
-            let len_bonus = 0.95
-            + 0.4 * (total_hits / 3000.0).min(1.0)
-            + (total_hits > 3000.0) as u8 as f64 * (total_hits / 3000.0).log10() * 0.5;
+        
+        let len_bonus = if self.mods.ap() {
+            0.95 + 0.4 * (total_hits / 3000.0).min(1.0)
+            + (total_hits > 3000.0) as u8 as f64 * (total_hits / 3000.0).log10() * 0.5
         } else {
-            let len_bonus = 0.95
-            + 0.4 * (total_hits / 2000.0).min(1.0)
-            + (total_hits > 2000.0) as u8 as f64 * (total_hits / 2000.0).log10() * 0.5;
-        }
+            0.95 + 0.4 * (total_hits / 2000.0).min(1.0)
+            + (total_hits > 2000.0) as u8 as f64 * (total_hits / 2000.0).log10() * 0.5
+        };
         speed_value *= len_bonus;
 
         if self.effective_miss_count > 0.0 {
@@ -612,7 +609,12 @@ impl OsuPpInner {
 
         // * Lots of arbitrary values from testing.
         // * Considering to use derivation from perfect accuracy in a probabilistic manner - assume normal distribution.
-        let mut acc_value = 1.52163_f64.powf(self.attrs.od) * better_acc_percentage.powi(24) * 2.83;
+        let acc_exponent = if self.mods.ap() { 
+            6
+        } else { 
+            24
+        };
+        let mut acc_value = 1.52163_f64.powf(self.attrs.od) * better_acc_percentage.powi(acc_exponent) * 2.83;
 
         // * Bonus for many hitcircles - it's harder to keep good accuracy up for longer.
         acc_value *= (amount_hit_objects_with_acc as f64 / 1000.0)
