@@ -516,8 +516,13 @@ impl OsuPpInner {
 
     fn compute_speed_value(&self) -> f64 {
 
-        let mut speed_value =
-            (5.0 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
+        if self.mods.ap() {
+            let mut speed_value =
+                (6.2 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
+        } else {
+            let mut speed_value =
+                (5.0 * (self.attrs.speed / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
+        }
 
         let total_hits = self.total_hits();
 
